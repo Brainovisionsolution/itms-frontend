@@ -1,14 +1,16 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://api-itms.brainovision.in/api',
 });
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
@@ -19,15 +21,17 @@ api.interceptors.response.use(
       localStorage.removeItem('token');
       window.location.href = '/login';
     }
+
     return Promise.reject(error);
   }
 );
 
 export const getFileUrl = (url) => {
   if (!url) return '';
+
   if (url.startsWith('http')) return url;
-  // If it's a relative path (old local uploads), prepend the backend root
-  return 'http://localhost:5000' + url;
+
+  return 'https://api-itms.brainovision.in' + url;
 };
 
 export default api;
