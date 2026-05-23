@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://api-itms.brainovision.in/api',
+  baseURL: 'https://api-itms.brainovision.in',
 });
 
 api.interceptors.request.use((config) => {
